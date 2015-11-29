@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 
@@ -31,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
     private void createListview() {
 
         /// IconImage
-        int[] intIcon = new int[20];
+        final int[] intIcon = new int[20];
         intIcon[0] = R.drawable.traffic_01;
         intIcon[1] = R.drawable.traffic_02;
         intIcon[2] = R.drawable.traffic_03;
@@ -53,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
         intIcon[18] = R.drawable.traffic_19;
         intIcon[19] = R.drawable.traffic_20;
 
-        String[] strtitle = new String[20];
+        final String[] strtitle = new String[20];
         strtitle[0] = "หัวข้อที่1";
         strtitle[1] = "หัวข้อที่2";
         strtitle[2] = "หัวข้อที่3";
@@ -76,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
         strtitle[19] = "หัวข้อที่20";
 
 
-        String[] strdetail = new String[20];
+        final String[] strdetail = new String[20];
         strdetail[0] = "รายละเอียดที่ 1";
         strdetail[1] = "รายละเอียดที่ 2";
         strdetail[2] = "รายละเอียดที่ 3";
@@ -101,6 +102,19 @@ public class MainActivity extends AppCompatActivity {
 
         MyAdapter objMyAdapter = new MyAdapter(MainActivity.this,intIcon,strtitle,strdetail);
         trafficsViewListView.setAdapter(objMyAdapter);
+
+
+        trafficsViewListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent objIntent = new Intent(MainActivity.this,DetailActivity.class);
+                objIntent.putExtra("title", strtitle[position]);
+                objIntent.putExtra("Image", intIcon[position]);
+                objIntent.putExtra("detail", strdetail[position]);
+                startActivity(objIntent);
+            }/// event
+        });
+
 
     }///// create list view
 
